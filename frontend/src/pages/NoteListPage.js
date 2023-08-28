@@ -14,7 +14,6 @@ export const NoteListPage = () => {
         let data = await response.json()
         console.log('DATA: ', data)
         setNotes(data)
-
     }
 
 
