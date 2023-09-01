@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
-import { Link } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 
-const NotePage = ( ) => {
+const NotePage = ({ history }) => {
 
     const  { id }  = useParams();
     let [note, setNote] = useState(null)
@@ -18,17 +18,30 @@ const NotePage = ( ) => {
          setNote(data)
      }
 
+     let updateNote = async () => {
+        fetch(`/api/notes/${id}/update/`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(note)
+        })
+     }
+
+     let handleSubmit = () => {
+        updateNote()
+        window.location.replace("/")
+     }
+
   return (
     <div className='note'>
         {/* "?" is a kind of exception that avoids an error when the var value is empty it wont do anything. but if var has something will do whatever it says  */}
         <div className='note-header'>
             <h3>
-            <Link to="/" >
-                 <ArrowLeft />
-             </Link>
+                 <ArrowLeft onClick={handleSubmit} />
             </h3>
         </div>
-        <textarea defaultValue={note?.body}></textarea>
+        <textarea onChange={(e) => {setNote({...note, 'body': e.target.value})}} defaultValue={note?.body}></textarea>
     </div>
   )
 }
