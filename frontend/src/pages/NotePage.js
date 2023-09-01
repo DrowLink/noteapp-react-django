@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from "react-router-dom";
+import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
 
 const NotePage = ( ) => {
 
@@ -17,9 +18,12 @@ const NotePage = ( ) => {
      }
 
   return (
-    <div>
+    <div className='note'>
         {/* "?" is a kind of exception that avoids an error when the var value is empty it wont do anything. but if var has something will do whatever it says  */}
-        <p>{note?.body}</p>
+        <div className='note-header'>
+            <ArrowLeft />
+        </div>
+        <textarea defaultValue={note?.body}></textarea>
     </div>
   )
 }
