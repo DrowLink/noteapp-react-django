@@ -40,7 +40,11 @@ const NotePage = ({ history }) => {
      }
 
      let handleSubmit = () => {
-        updateNote()
+        if (id !== 'new' && !note.body){ //avoiding null existing notes.
+            deleteNote();
+        } else if ( id !== 'new'){
+            updateNote()
+        }
         window.location.replace("/")
      }
 
