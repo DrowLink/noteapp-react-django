@@ -50,7 +50,11 @@ const NotePage = ({ history }) => {
             <h3>
                  <ArrowLeft onClick={handleSubmit} />
             </h3>
-            <button onClick={deleteNote}>delete</button>
+            {id !== 'new' ? (
+                    <button onClick={deleteNote}>Delete</button>
+                ) : (
+                    <button>Done</button>
+                )}
         </div>
         <textarea onChange={(e) => {setNote({...note, 'body': e.target.value})}} defaultValue={note?.body}></textarea>
     </div>
