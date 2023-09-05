@@ -28,6 +28,16 @@ const NotePage = ({ history }) => {
         })
      }
 
+     let deleteNote = async () => {
+        fetch(`/api/notes/${id}/delete/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        window.location.replace("/")
+     }
+
      let handleSubmit = () => {
         updateNote()
         window.location.replace("/")
@@ -40,6 +50,7 @@ const NotePage = ({ history }) => {
             <h3>
                  <ArrowLeft onClick={handleSubmit} />
             </h3>
+            <button onClick={deleteNote}>delete</button>
         </div>
         <textarea onChange={(e) => {setNote({...note, 'body': e.target.value})}} defaultValue={note?.body}></textarea>
     </div>

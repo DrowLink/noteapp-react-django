@@ -13,12 +13,14 @@ function App() {
     <Router>
       <div className="container dark">
         <div className="app">
-          < Header />
+        < Header />
           <Routes>
             <Route path="/" element={<NotesListPage />}/>
             <Route path="/note/:id" element={<NotePage />}/>
           </Routes>
+          
         </div>
+        
       </div>
     </Router>
   );
