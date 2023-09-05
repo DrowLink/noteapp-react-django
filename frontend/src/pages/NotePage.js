@@ -13,6 +13,7 @@ const NotePage = ({ history }) => {
      }, [id])
 
      let getNote = async () => {
+        if (id === 'new') return 
          let response = await fetch(`/api/notes/${id}/`)
          let data = await response.json()
          setNote(data)
