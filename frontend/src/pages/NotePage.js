@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from "react-router-dom";
 import { ReactComponent as ArrowLeft } from '../assets/arrow-left.svg'
-import { Navigate } from "react-router-dom";
 
 const NotePage = ({ history }) => {
 
@@ -20,7 +19,7 @@ const NotePage = ({ history }) => {
      }
 
      let createNote = async () => {
-        fetch(`/api/notes/create`, {
+        fetch(`/api/notes/create/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -51,14 +50,19 @@ const NotePage = ({ history }) => {
      }
 
      let handleSubmit = () => {
-        if (id !== 'new' && !note.body){ //avoiding null existing notes.
+        if (id !== 'new' && note.body === ''){ //avoiding null existing notes.
             deleteNote();
         } else if ( id !== 'new'){
             updateNote()
-        }else if (id == 'new' && note !== null){
+        }else if (id === 'new' && note !== null){
             createNote()
         }
         window.location.replace("/")
+     }
+
+     let handleChange = (value) => {
+        setNote(note => ({ ...note, 'body':value }))
+        console.log('Handle Change: ', note)
      }
 
   return (
@@ -74,7 +78,7 @@ const NotePage = ({ history }) => {
                     <button onClick={handleSubmit}>Done</button>
                 )}
         </div>
-        <textarea onChange={(e) => {setNote({...note, 'body': e.target.value})}} defaultValue={note?.body}></textarea>
+        <textarea onChange={(e) => { handleChange(e.target.value) }} value={note?.body}></textarea>
     </div>
   )
 }
